@@ -1,0 +1,26 @@
+version: "3"
+services:
+ postgres:
+     image: postgres:12.1
+     container_name: postgres
+    
+     ports: 
+       - '5432:5432'
+     volumes:
+       - ./postgres:/var/lib/postgresql/data
+       - ./rails:/myapp
+ ruby:
+    build: ./rails/
+    container_name: ruby
+    command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
+    depends_on:
+      - postgres
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./rails:/myapp
+ ang:
+    container_name: ang
+    build: ./angular
+    ports:
+      - "8080:80"
