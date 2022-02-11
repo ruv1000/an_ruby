@@ -30,7 +30,7 @@ services:
  ang:
     container_name: ang
     build: ./angular
-    environment:
-      API_IP: "${API_IP}"
+    # environment:
+    #   API_IP: "${API_IP}"
     ports:
       - "8080:80"
